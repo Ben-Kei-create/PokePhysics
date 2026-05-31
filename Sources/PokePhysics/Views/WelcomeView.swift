@@ -4,50 +4,39 @@ struct WelcomeView: View {
     @EnvironmentObject private var router: AppRouter
 
     var body: some View {
-        NavigationStack(path: $router.path) {
-            ZStack {
-                Color.appBackground
-                    .ignoresSafeArea()
+        ZStack {
+            Color.appBackground
+                .ignoresSafeArea()
 
-                WaveBackground()
+            WaveBackground()
 
-                VStack(spacing: 0) {
-                    Spacer()
+            VStack(spacing: 0) {
+                Spacer()
 
-                    GlassBadgeView()
+                GlassBadgeView()
 
-                    Spacer().frame(height: 32)
+                Spacer().frame(height: 32)
 
-                    Text("ポケぶつ")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
+                Text("ポケぶつ")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
 
-                    Spacer().frame(height: 8)
+                Spacer().frame(height: 8)
 
-                    Text("高校物理の公式集")
-                        .font(.body)
-                        .foregroundColor(.secondary)
+                Text("高校物理の公式集")
+                    .font(.body)
+                    .foregroundColor(.secondary)
 
-                    Spacer()
+                Spacer()
 
-                    BeginButton {
-                        router.path.append(AppRoute.home)
-                    }
-                }
-            }
-            .toolbar(.hidden, for: .navigationBar)
-            .navigationDestination(for: AppRoute.self) { route in
-                switch route {
-                case .home:
-                    HomeView()
-                case .formulaList(let category):
-                    FormulaListView(category: category)
-                case .formulaDetail(let formula):
-                    FormulaDetailView(formula: formula)
+                BeginButton {
+                    UserDefaults.standard.set(true, forKey: LaunchDefaults.hasLaunchedBeforeKey)
+                    router.path.append(AppRoute.home)
                 }
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
