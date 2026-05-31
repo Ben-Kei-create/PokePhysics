@@ -12,7 +12,6 @@ struct HomeView: View {
                 .tabItem {
                     Label("暗記", systemImage: "square.stack")
                 }
-
             CategoryListTab(searchText: $formulaSearchText)
                 .tabItem {
                     Label("公式", systemImage: "function")
@@ -89,13 +88,9 @@ private struct CategoryListTab: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            AdBannerSlot()
-                .padding(.horizontal, 16)
-                .padding(.top, 8)
-
             InlineSearchField(prompt: "公式を検索", text: $searchText)
                 .padding(.horizontal, 16)
-
+                .padding(.top, 8)
             ScrollView {
                 if query.isEmpty {
                     LazyVGrid(columns: columns, spacing: 16) {
@@ -126,6 +121,9 @@ private struct CategoryListTab: View {
                     .padding(.bottom, 32)
                 }
             }
+            AdBannerSlot()
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
         }
         .background(Color.appBackground.ignoresSafeArea())
     }
