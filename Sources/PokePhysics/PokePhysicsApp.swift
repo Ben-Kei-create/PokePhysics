@@ -1,3 +1,4 @@
+import GoogleMobileAds
 import SwiftUI
 
 @main
@@ -6,13 +7,28 @@ struct PokePhysicsApp: App {
     @StateObject private var bookmarkStore = BookmarkStore()
     @State private var showSplash = true
 
+    init() {
+        MobileAds.shared.start()
+    }
+
     var body: some Scene {
         WindowGroup {
             ZStack {
-                // WelcomeView は常に背後に用意。スプラッシュが消えた瞬間に見える。
-                WelcomeView()
-                    .environmentObject(router)
-                    .environmentObject(bookmarkStore)
+                NavigationStack(path: $router.path) {
+                    HomeView()
+                        .navigationDestination(for: AppRoute.self) { route in
+                            switch route {
+                            case .home:
+                                HomeView()
+                            case .formulaList(let category):
+                                FormulaListView(category: category)
+                            case .formulaDetail(let formula):
+                                FormulaDetailView(formula: formula)
+                            }
+                        }
+                }
+                .environmentObject(router)
+                .environmentObject(bookmarkStore)
 
                 if showSplash {
                     SplashView {
