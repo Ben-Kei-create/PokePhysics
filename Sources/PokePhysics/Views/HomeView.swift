@@ -8,6 +8,11 @@ struct HomeView: View {
                     Label("公式", systemImage: "function")
                 }
 
+            FlashcardView()
+                .tabItem {
+                    Label("暗記", systemImage: "square.stack")
+                }
+
             BookmarksView()
                 .tabItem {
                     Label("ブックマーク", systemImage: "bookmark")
