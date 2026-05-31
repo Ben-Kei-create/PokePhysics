@@ -28,7 +28,7 @@ struct BookmarksView: View {
                 .padding(.vertical, 8)
             }
         }
-        .background(Color(hex: "FAFAFA").ignoresSafeArea())
+        .background(Color.appBackground.ignoresSafeArea())
         .navigationTitle("ブックマーク")
         .navigationBarTitleDisplayMode(.large)
     }
@@ -39,7 +39,7 @@ private struct EmptyBookmarksPlaceholder: View {
         VStack(spacing: 16) {
             Image(systemName: "bookmark")
                 .font(.system(size: 44))
-                .foregroundColor(Color(hex: "1F355C").opacity(0.25))
+                .foregroundColor(Color.navyAccent.opacity(0.3))
 
             Text("ブックマークはありません")
                 .font(.headline)

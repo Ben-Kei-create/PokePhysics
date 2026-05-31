@@ -6,7 +6,7 @@ struct WelcomeView: View {
     var body: some View {
         NavigationStack(path: $router.path) {
             ZStack {
-                Color(hex: "FAFAFA")
+                Color.appBackground
                     .ignoresSafeArea()
 
                 WaveBackground()
@@ -21,7 +21,7 @@ struct WelcomeView: View {
                     Text("ポケぶつ")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(Color(hex: "1F355C"))
+                        .foregroundColor(.primary)
 
                     Spacer().frame(height: 8)
 
@@ -53,24 +53,25 @@ struct WelcomeView: View {
 
 // MARK: - Glass Badge
 private struct GlassBadgeView: View {
+    @Environment(\.colorScheme) private var scheme
+
     var body: some View {
         ZStack {
             Circle()
                 .fill(
                     LinearGradient(
-                        colors: [
-                            Color(red: 0.72, green: 0.80, blue: 0.90),
-                            Color(red: 0.85, green: 0.90, blue: 0.97)
-                        ],
+                        colors: scheme == .dark
+                            ? [Color(red: 0.25, green: 0.38, blue: 0.55), Color(red: 0.32, green: 0.46, blue: 0.64)]
+                            : [Color(red: 0.72, green: 0.80, blue: 0.90), Color(red: 0.85, green: 0.90, blue: 0.97)],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
                 )
                 .overlay(
                     Circle()
-                        .stroke(Color.white.opacity(0.6), lineWidth: 1)
+                        .stroke(Color.white.opacity(scheme == .dark ? 0.15 : 0.6), lineWidth: 1)
                 )
-                .shadow(color: Color(hex: "1F355C").opacity(0.15), radius: 16, x: 0, y: 8)
+                .shadow(color: Color.navyButton.opacity(scheme == .dark ? 0.5 : 0.15), radius: 16, x: 0, y: 8)
                 .frame(width: 120, height: 120)
 
             Text("f")
@@ -94,7 +95,7 @@ private struct BeginButton: View {
                 .frame(height: 56)
                 .background(
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(Color(hex: "1F355C"))
+                        .fill(Color.navyButton)
                 )
         }
         .padding(.horizontal, 24)

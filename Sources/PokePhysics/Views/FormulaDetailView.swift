@@ -5,6 +5,7 @@ struct FormulaDetailView: View {
 
     @EnvironmentObject private var router: AppRouter
     @EnvironmentObject private var bookmarkStore: BookmarkStore
+    @Environment(\.colorScheme) private var scheme
 
     private var relatedFormulas: [Formula] {
         FormulaLibrary.relatedFormulas(for: formula)
@@ -13,13 +14,15 @@ struct FormulaDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                // Large formula display
-                LaTeXView(latex: formula.latex, fontSize: 44)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 80)
-                    .padding(.top, 8)
+                LaTeXView(
+                    latex: formula.latex,
+                    fontSize: 44,
+                    textColor: scheme == .dark ? .white : .black
+                )
+                .frame(maxWidth: .infinity)
+                .frame(height: 80)
+                .padding(.top, 8)
 
-                // 概要
                 SectionCard(title: "概要") {
                     Text(formula.summary)
                         .font(.body)
@@ -27,7 +30,6 @@ struct FormulaDetailView: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
-                // 記号の意味
                 if !formula.symbols.isEmpty {
                     SectionCard(title: "記号の意味") {
                         VStack(alignment: .leading, spacing: 10) {
@@ -36,7 +38,7 @@ struct FormulaDetailView: View {
                                     Text(sym.symbol)
                                         .font(.body)
                                         .fontWeight(.semibold)
-                                        .foregroundColor(Color(hex: "1F355C"))
+                                        .foregroundColor(.navyAccent)
                                     Text(": \(sym.description)")
                                         .font(.body)
                                         .foregroundColor(.primary)
@@ -46,7 +48,6 @@ struct FormulaDetailView: View {
                     }
                 }
 
-                // 成立条件
                 if !formula.conditions.isEmpty {
                     SectionCard(title: "成立条件") {
                         Text(formula.conditions)
@@ -56,14 +57,12 @@ struct FormulaDetailView: View {
                     }
                 }
 
-                // 関連する公式
                 if !relatedFormulas.isEmpty {
                     SectionCard(title: "関連する公式") {
                         VStack(spacing: 0) {
                             ForEach(Array(relatedFormulas.enumerated()), id: \.element.id) { index, related in
                                 if index > 0 {
                                     Divider()
-                                        .padding(.horizontal, -4)
                                 }
                                 Button {
                                     router.path.append(AppRoute.formulaDetail(related))
@@ -89,7 +88,7 @@ struct FormulaDetailView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 40)
         }
-        .background(Color(hex: "FAFAFA").ignoresSafeArea())
+        .background(Color.appBackground.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -97,7 +96,7 @@ struct FormulaDetailView: View {
                     bookmarkStore.toggle(formula)
                 } label: {
                     Image(systemName: bookmarkStore.isBookmarked(formula) ? "bookmark.fill" : "bookmark")
-                        .foregroundColor(Color(hex: "1F355C"))
+                        .foregroundColor(.navyAccent)
                 }
             }
         }
@@ -125,8 +124,8 @@ private struct SectionCard<Content: View>: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.white)
-                    .shadow(color: Color(hex: "1F355C").opacity(0.07), radius: 10, x: 0, y: 3)
+                    .fill(Color.cardBackground)
+                    .shadow(color: Color.navyButton.opacity(0.07), radius: 10, x: 0, y: 3)
             )
         }
     }

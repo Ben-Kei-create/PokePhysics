@@ -20,16 +20,18 @@ private struct WaveShape: Shape {
 }
 
 struct WaveBackground: View {
-    private let navy = Color(hex: "1F355C")
+    @Environment(\.colorScheme) private var scheme
 
     var body: some View {
+        // Higher opacity in dark mode so waves remain subtly visible.
+        let opacity: Double = scheme == .dark ? 0.10 : 0.04
         ZStack {
             WaveShape(verticalOffset: 0.32, amplitude: 22)
-                .stroke(navy.opacity(0.04), lineWidth: 1.5)
+                .stroke(Color.navyAccent.opacity(opacity), lineWidth: 1.5)
             WaveShape(verticalOffset: 0.54, amplitude: 18)
-                .stroke(navy.opacity(0.035), lineWidth: 1.5)
+                .stroke(Color.navyAccent.opacity(opacity * 0.87), lineWidth: 1.5)
             WaveShape(verticalOffset: 0.73, amplitude: 25)
-                .stroke(navy.opacity(0.03), lineWidth: 1.5)
+                .stroke(Color.navyAccent.opacity(opacity * 0.75), lineWidth: 1.5)
         }
         .allowsHitTesting(false)
         .ignoresSafeArea()

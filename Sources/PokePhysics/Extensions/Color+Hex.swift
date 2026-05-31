@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 extension Color {
     init(hex: String) {
@@ -22,4 +23,25 @@ extension Color {
             opacity: Double(a) / 255
         )
     }
+}
+
+// MARK: - Semantic design tokens
+extension Color {
+    /// Page / screen background — #F2F2F7 (light) / #1C1C1E (dark)
+    static let appBackground = Color(.systemGroupedBackground)
+
+    /// Card surface — white (light) / #2C2C2E (dark)
+    static let cardBackground = Color(.secondarySystemGroupedBackground)
+
+    /// Brand accent for text, icons, and tints.
+    /// Adapts: #1F355C deep navy (light) → #8BADD4 soft blue (dark)
+    static let navyAccent = Color(UIColor { tc in
+        tc.userInterfaceStyle == .dark
+            ? UIColor(red: 0.545, green: 0.678, blue: 0.831, alpha: 1)
+            : UIColor(red: 0.122, green: 0.208, blue: 0.361, alpha: 1)
+    })
+
+    /// Fixed deep navy (#1F355C) for filled button backgrounds.
+    /// Always dark so white label text maintains contrast.
+    static let navyButton = Color(hex: "1F355C")
 }

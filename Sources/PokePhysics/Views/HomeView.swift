@@ -13,7 +13,7 @@ struct HomeView: View {
                     Label("ブックマーク", systemImage: "bookmark")
                 }
         }
-        .tint(Color(hex: "1F355C"))
+        .tint(.navyAccent)
         .navigationBarHidden(true)
     }
 }
@@ -27,19 +27,17 @@ private struct CategoryListTab: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                // Header
                 VStack(alignment: .leading, spacing: 4) {
                     Text("ポケぶつ")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(Color(hex: "1F355C"))
+                        .foregroundColor(.primary)
                     Text("高校物理の公式集")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 .padding(.top, 8)
 
-                // Category grid
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
                     ForEach(categories) { category in
                         CategoryCard(category: category)
@@ -52,7 +50,7 @@ private struct CategoryListTab: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 32)
         }
-        .background(Color(hex: "FAFAFA").ignoresSafeArea())
+        .background(Color.appBackground.ignoresSafeArea())
     }
 }
 
@@ -64,18 +62,18 @@ private struct CategoryCard: View {
         VStack(alignment: .leading, spacing: 12) {
             Image(systemName: category.icon)
                 .font(.system(size: 28))
-                .foregroundColor(Color(hex: "1F355C"))
+                .foregroundColor(.navyAccent)
                 .frame(width: 48, height: 48)
                 .background(
                     RoundedRectangle(cornerRadius: 14)
-                        .fill(Color(hex: "1F355C").opacity(0.08))
+                        .fill(Color.navyAccent.opacity(0.12))
                 )
 
             Spacer()
 
             Text(category.name)
                 .font(.headline)
-                .foregroundColor(Color(hex: "1F355C"))
+                .foregroundColor(.primary)
 
             Text("\(category.formulas.count)公式")
                 .font(.caption)
@@ -85,8 +83,8 @@ private struct CategoryCard: View {
         .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white)
-                .shadow(color: Color(hex: "1F355C").opacity(0.08), radius: 12, x: 0, y: 4)
+                .fill(Color.cardBackground)
+                .shadow(color: Color.navyButton.opacity(0.08), radius: 12, x: 0, y: 4)
         )
     }
 }

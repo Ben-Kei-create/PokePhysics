@@ -5,7 +5,7 @@ import iosMath
 struct LaTeXView: UIViewRepresentable {
     let latex: String
     var fontSize: CGFloat = 28
-    var textColor: UIColor = .label
+    var textColor: UIColor = .label  // adaptive; override in FormulaDetailView
 
     func makeUIView(context: Context) -> MTMathUILabel {
         let label = MTMathUILabel()

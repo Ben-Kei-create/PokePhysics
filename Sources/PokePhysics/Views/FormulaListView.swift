@@ -40,7 +40,7 @@ struct FormulaListView: View {
                 .padding(.vertical, 8)
             }
         }
-        .background(Color(hex: "FAFAFA").ignoresSafeArea())
+        .background(Color.appBackground.ignoresSafeArea())
         .navigationTitle(category.name)
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
@@ -49,13 +49,15 @@ struct FormulaListView: View {
     }
 
     private func styleSegmentedControl() {
-        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color(hex: "1F355C"))
+        // Use a fixed deep navy for the selected segment tint so white text always contrasts.
+        let navy = UIColor(red: 0.122, green: 0.208, blue: 0.361, alpha: 1)
+        UISegmentedControl.appearance().selectedSegmentTintColor = navy
         UISegmentedControl.appearance().setTitleTextAttributes(
             [.foregroundColor: UIColor.white],
             for: .selected
         )
         UISegmentedControl.appearance().setTitleTextAttributes(
-            [.foregroundColor: UIColor(Color(hex: "1F355C"))],
+            [.foregroundColor: navy],
             for: .normal
         )
     }

@@ -1,6 +1,8 @@
 import SwiftUI
+import UIKit
 
 struct FormulaCard: View {
+    @Environment(\.colorScheme) private var scheme
     let formula: Formula
 
     @EnvironmentObject private var bookmarkStore: BookmarkStore
@@ -10,7 +12,7 @@ struct FormulaCard: View {
             HStack(alignment: .top) {
                 Text(formula.title)
                     .font(.headline)
-                    .foregroundColor(Color(hex: "1F355C"))
+                    .foregroundColor(.primary)
                     .fixedSize(horizontal: false, vertical: true)
 
                 Spacer()
@@ -19,15 +21,19 @@ struct FormulaCard: View {
                     bookmarkStore.toggle(formula)
                 } label: {
                     Image(systemName: bookmarkStore.isBookmarked(formula) ? "bookmark.fill" : "bookmark")
-                        .foregroundColor(Color(hex: "1F355C"))
+                        .foregroundColor(.navyAccent)
                         .font(.system(size: 16))
                 }
                 .buttonStyle(.plain)
             }
 
-            LaTeXView(latex: formula.latex, fontSize: 26)
-                .frame(maxWidth: .infinity)
-                .frame(height: 44)
+            LaTeXView(
+                latex: formula.latex,
+                fontSize: 26,
+                textColor: scheme == .dark ? .white : .black
+            )
+            .frame(maxWidth: .infinity)
+            .frame(height: 44)
 
             Text(formula.summary)
                 .font(.caption)
@@ -37,8 +43,8 @@ struct FormulaCard: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white)
-                .shadow(color: Color(hex: "1F355C").opacity(0.08), radius: 12, x: 0, y: 4)
+                .fill(Color.cardBackground)
+                .shadow(color: Color.navyButton.opacity(0.08), radius: 12, x: 0, y: 4)
         )
     }
 }
