@@ -1,60 +1,88 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject private var router: AppRouter
-
-    private let categories: [FormulaCategory] = [
-        .sampleMechanics
-    ]
-
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(categories) { category in
-                    CategoryRow(category: category)
-                        .onTapGesture {
-                            router.path.append(AppRoute.formulaList(category))
-                        }
+        TabView {
+            CategoryListTab()
+                .tabItem {
+                    Label("公式", systemImage: "function")
                 }
-            }
-            .padding(20)
+
+            BookmarksView()
+                .tabItem {
+                    Label("ブックマーク", systemImage: "bookmark")
+                }
         }
-        .background(Color(hex: "FAFAFA").ignoresSafeArea())
-        .navigationTitle("ポケぶつ")
-        .navigationBarTitleDisplayMode(.large)
+        .tint(Color(hex: "1F355C"))
+        .navigationBarHidden(true)
     }
 }
 
-private struct CategoryRow: View {
+// MARK: - Category List Tab
+private struct CategoryListTab: View {
+    @EnvironmentObject private var router: AppRouter
+
+    private let categories = FormulaLibrary.allCategories
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                // Header
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("ポケぶつ")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color(hex: "1F355C"))
+                    Text("高校物理の公式集")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.top, 8)
+
+                // Category grid
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                    ForEach(categories) { category in
+                        CategoryCard(category: category)
+                            .onTapGesture {
+                                router.path.append(AppRoute.formulaList(category))
+                            }
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 32)
+        }
+        .background(Color(hex: "FAFAFA").ignoresSafeArea())
+    }
+}
+
+// MARK: - Category Card
+private struct CategoryCard: View {
     let category: FormulaCategory
 
     var body: some View {
-        HStack(spacing: 16) {
+        VStack(alignment: .leading, spacing: 12) {
             Image(systemName: category.icon)
-                .font(.system(size: 24))
+                .font(.system(size: 28))
                 .foregroundColor(Color(hex: "1F355C"))
-                .frame(width: 44, height: 44)
+                .frame(width: 48, height: 48)
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 14)
                         .fill(Color(hex: "1F355C").opacity(0.08))
                 )
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(category.name)
-                    .font(.headline)
-                    .foregroundColor(Color(hex: "1F355C"))
-                Text("\(category.formulas.count)公式")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-
             Spacer()
 
-            Image(systemName: "chevron.right")
-                .font(.system(size: 14, weight: .semibold))
+            Text(category.name)
+                .font(.headline)
+                .foregroundColor(Color(hex: "1F355C"))
+
+            Text("\(category.formulas.count)公式")
+                .font(.caption)
                 .foregroundColor(.secondary)
         }
-        .padding(20)
+        .padding(18)
+        .frame(maxWidth: .infinity, minHeight: 140, alignment: .topLeading)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.white)

@@ -7,9 +7,7 @@ struct FormulaDetailView: View {
     @EnvironmentObject private var bookmarkStore: BookmarkStore
 
     private var relatedFormulas: [Formula] {
-        FormulaCategory.sampleMechanics.formulas.filter {
-            formula.relatedFormulaIDs.contains($0.id)
-        }
+        FormulaLibrary.relatedFormulas(for: formula)
     }
 
     var body: some View {
