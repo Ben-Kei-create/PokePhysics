@@ -1,10 +1,6 @@
 import GoogleMobileAds
 import SwiftUI
 
-enum LaunchDefaults {
-    static let hasLaunchedBeforeKey = "hasLaunchedBefore"
-}
-
 @main
 struct PokePhysicsApp: App {
     @StateObject private var router = AppRouter()
