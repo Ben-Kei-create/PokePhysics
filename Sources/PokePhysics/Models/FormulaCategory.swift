@@ -253,6 +253,22 @@ extension FormulaCategory {
             examTag: .advanced,
             example: "g=9.8 m/s²、R=6.4×10⁶ m。第 1 宇宙速度は？→ v = √(9.8×6.4×10⁶) ≈ 7.9×10³ m/s"
         )
+        let kepler = Formula(
+            title: "ケプラーの第3法則",
+            latex: "T^2 = \\frac{4\\pi^2}{GM}r^3",
+            summary: "惑星・衛星の公転周期の2乗は軌道半径の3乗に比例する。",
+            symbols: [
+                FormulaSymbol(symbol: "T", description: "公転周期 [s]"),
+                FormulaSymbol(symbol: "G", description: "万有引力定数 ≈ 6.67×10⁻¹¹ [N·m²/kg²]"),
+                FormulaSymbol(symbol: "M", description: "中心天体の質量 [kg]"),
+                FormulaSymbol(symbol: "r", description: "軌道半径 [m]")
+            ],
+            conditions: "円軌道の場合に厳密に成立する。楕円軌道では r を半長軸とする。",
+            relatedFormulaIDs: [gravitation.id, centripetal.id],
+            subcategory: "力と運動",
+            examTag: .common,
+            example: "地球（GM=4.0×10¹⁴）の周りを r=4×10⁷ m で周回する衛星の周期は？→ T = 2π√(r³/GM) ≈ 3.6×10⁴ s"
+        )
         // 仕事とエネルギー
         let work = Formula(
             title: "仕事",
@@ -459,7 +475,7 @@ extension FormulaCategory {
                 newton, hooke, friction,
                 velocityKinematics, displacement, velocitySquared,
                 momentum, restitution, centripetal, angularVelocity,
-                pressure, hydropressure, buoyancy, gravitation, firstCosmicVelocity,
+                pressure, hydropressure, buoyancy, gravitation, firstCosmicVelocity, kepler,
                 work, gravitationalPE, elasticPE, gravitationalPEU, mechanicalPower, kineticEnergy, energy, moment,
                 springSerial, springParallel, springPendulum, shm, pendulum
             ]
@@ -547,6 +563,22 @@ extension FormulaCategory {
             subcategory: "静電気",
             examTag: .advanced,
             example: "C=10 μF、V=100 V。静電エネルギーは？→ U = ½×10⁻⁵×10⁴ = 0.05 J"
+        )
+        let parallelPlateC = Formula(
+            title: "平行板コンデンサーの電気容量",
+            latex: "C = \\varepsilon_0\\frac{S}{d}",
+            summary: "向かい合う2枚の板の面積と間隔で決まる電気容量。",
+            symbols: [
+                FormulaSymbol(symbol: "C", description: "電気容量 [F]"),
+                FormulaSymbol(symbol: "\\varepsilon_0", description: "真空の誘電率 ≈ 8.85×10⁻¹² [F/m]"),
+                FormulaSymbol(symbol: "S", description: "極板の面積 [m²]"),
+                FormulaSymbol(symbol: "d", description: "極板間の距離 [m]")
+            ],
+            conditions: "極板間隔 d が極板の大きさに比べて十分小さいとき成立する。誘電体を挟む場合は ε₀ → ε₀εᵣ。",
+            relatedFormulaIDs: [capacitance.id],
+            subcategory: "静電気",
+            examTag: .common,
+            example: "S=1×10⁻² m²、d=1×10⁻³ m。電気容量は？→ C = 8.85×10⁻¹²×0.01/0.001 = 88.5 pF"
         )
         // 電流と回路
         let current = Formula(
@@ -641,6 +673,21 @@ extension FormulaCategory {
             examTag: .common,
             example: "起電力 9 V、内部抵抗 1 Ω、I=2 A。端子電圧は？→ V = 9−1×2 = 7 V"
         )
+        let kirchhoff = Formula(
+            title: "キルヒホッフの法則",
+            latex: "\\sum I = 0 \\quad;\\quad \\sum\\mathcal{E} = \\sum RI",
+            summary: "第1法則：接続点での電流の和はゼロ。第2法則：閉回路での起電力の和は電圧降下の和に等しい。",
+            symbols: [
+                FormulaSymbol(symbol: "\\sum I", description: "接続点に流入・流出する電流の代数和"),
+                FormulaSymbol(symbol: "\\sum\\mathcal{E}", description: "閉回路内の起電力の和 [V]"),
+                FormulaSymbol(symbol: "\\sum RI", description: "閉回路内の電圧降下の和 [V]")
+            ],
+            conditions: "定常電流の回路に成立する。電流の向きと一致する場合を正とする。",
+            relatedFormulaIDs: [ohm.id, emf.id],
+            subcategory: "電流と回路",
+            examTag: .common,
+            example: "起電力 E₁=12 V、E₂=6 V、抵抗 R₁=2 Ω、R₂=4 Ω の直列回路。電流は？→ I = (12−6)/(2+4) = 1 A"
+        )
         // 磁気
         let lorentz = Formula(
             title: "ローレンツ力",
@@ -657,6 +704,23 @@ extension FormulaCategory {
             subcategory: "磁気",
             examTag: .common,
             example: "q=1.6×10⁻¹⁹ C、v=5×10⁶ m/s、B=0.2 T（垂直）。ローレンツ力は？→ F = 1.6×10⁻¹³ N"
+        )
+        let cyclotron = Formula(
+            title: "磁場中の荷電粒子の円運動半径",
+            latex: "r = \\frac{mv}{qB}",
+            summary: "磁場に垂直に入射した荷電粒子はローレンツ力を向心力として等速円運動する。",
+            symbols: [
+                FormulaSymbol(symbol: "r", description: "円運動の半径 [m]"),
+                FormulaSymbol(symbol: "m", description: "粒子の質量 [kg]"),
+                FormulaSymbol(symbol: "v", description: "粒子の速さ [m/s]"),
+                FormulaSymbol(symbol: "q", description: "粒子の電荷 [C]"),
+                FormulaSymbol(symbol: "B", description: "磁束密度 [T]")
+            ],
+            conditions: "v⊥B のとき成立する。電場なし、粒子の速さは変化しない。",
+            relatedFormulaIDs: [lorentz.id],
+            subcategory: "磁気",
+            examTag: .common,
+            example: "電子（m=9.1×10⁻³¹ kg、q=1.6×10⁻¹⁹ C）が v=2×10⁷ m/s、B=0.1 T 中で円運動。r は？→ r = 9.1×10⁻³¹×2×10⁷/(1.6×10⁻¹⁹×0.1) ≈ 1.1 mm"
         )
         let wireForce = Formula(
             title: "電流が磁場から受ける力",
@@ -832,9 +896,9 @@ extension FormulaCategory {
             name: "電磁気学",
             icon: "bolt.circle",
             formulas: [
-                coulomb, electricField, electricPotential, capacitance, capacitorEnergy,
-                current, ohm, resistivity, power, joule, emf,
-                lorentz, wireForce, faraday, motionalEMF, selfInduction, coilEnergy,
+                coulomb, electricField, electricPotential, capacitance, parallelPlateC, capacitorEnergy,
+                current, ohm, resistivity, power, joule, emf, kirchhoff,
+                lorentz, cyclotron, wireForce, faraday, motionalEMF, selfInduction, coilEnergy,
                 reactanceL, reactanceC, impedance, resonance, acEffective, transformer
             ]
         )
