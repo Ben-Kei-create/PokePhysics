@@ -1,25 +1,62 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var selectedTab: HomeTab = .formulas
+    @State private var bookmarkSearchText = ""
+    @State private var formulaSearchText = ""
+    @State private var constantSearchText = ""
+
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             CategoryListTab()
                 .tabItem {
                     Label("公式", systemImage: "function")
                 }
+                .tag(HomeTab.formulas)
 
-            BookmarksView()
+            BookmarksView(searchText: $bookmarkSearchText)
                 .tabItem {
                     Label("ブックマーク", systemImage: "bookmark")
                 }
+                .tag(HomeTab.bookmarks)
 
-            SearchView()
+            SearchView(searchText: $formulaSearchText)
                 .tabItem {
                     Label("検索", systemImage: "magnifyingglass")
                 }
+                .tag(HomeTab.search)
+
+            ConstantsView(searchText: $constantSearchText)
+                .tabItem {
+                    Label("定数", systemImage: "number")
+                }
+                .tag(HomeTab.constants)
         }
         .tint(.navyAccent)
+        .navigationTitle(selectedTab.navigationTitle)
+        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
+        .toolbar(selectedTab == .formulas ? .hidden : .visible, for: .navigationBar)
+    }
+}
+
+private enum HomeTab {
+    case formulas
+    case bookmarks
+    case search
+    case constants
+
+    var navigationTitle: String {
+        switch self {
+        case .formulas:
+            "ポケぶつ"
+        case .bookmarks:
+            "ブックマーク"
+        case .search:
+            "検索"
+        case .constants:
+            "定数"
+        }
     }
 }
 
@@ -56,7 +93,6 @@ private struct CategoryListTab: View {
             .padding(.bottom, 32)
         }
         .background(Color.appBackground.ignoresSafeArea())
-        .toolbar(.hidden, for: .navigationBar)
     }
 }
 

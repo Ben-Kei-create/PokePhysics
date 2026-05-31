@@ -15,7 +15,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		A56452602FCBF9E900F2C329 /* PokePhysics */ = {
+		A56452602FCBF9E900F2C329 /* Sources/PokePhysics */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Sources/PokePhysics;
 			sourceTree = "<group>";
@@ -37,7 +37,7 @@
 		A56452552FCBF9E900F2C329 = {
 			isa = PBXGroup;
 			children = (
-				A56452602FCBF9E900F2C329 /* PokePhysics */,
+				A56452602FCBF9E900F2C329 /* Sources/PokePhysics */,
 				A564525F2FCBF9E900F2C329 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,7 +66,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				A56452602FCBF9E900F2C329 /* PokePhysics */,
+				A56452602FCBF9E900F2C329 /* Sources/PokePhysics */,
 			);
 			name = PokePhysics;
 			packageProductDependencies = (
@@ -278,6 +278,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fumiakiMogi777.PokePhysics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -310,6 +314,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fumiakiMogi777.PokePhysics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;

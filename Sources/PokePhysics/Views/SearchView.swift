@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject private var router: AppRouter
-    @State private var searchText = ""
+    @Binding var searchText: String
 
     private let allFormulas = FormulaLibrary.allCategories.flatMap(\.formulas)
 
@@ -19,26 +19,28 @@ struct SearchView: View {
 
     var body: some View {
         ScrollView {
-            if searchResults.isEmpty {
-                EmptySearchPlaceholder()
-                    .padding(.top, 80)
-            } else {
-                LazyVStack(spacing: 16) {
-                    ForEach(searchResults) { formula in
-                        FormulaCard(formula: formula)
-                            .onTapGesture {
-                                router.path.append(AppRoute.formulaDetail(formula))
-                            }
+            VStack(spacing: 16) {
+                InlineSearchField(prompt: "公式を検索", text: $searchText)
+                    .padding(.horizontal, 16)
+
+                if searchResults.isEmpty {
+                    EmptySearchPlaceholder()
+                        .padding(.top, 64)
+                } else {
+                    LazyVStack(spacing: 16) {
+                        ForEach(searchResults) { formula in
+                            FormulaCard(formula: formula)
+                                .onTapGesture {
+                                    router.path.append(AppRoute.formulaDetail(formula))
+                                }
+                        }
                     }
+                    .padding(.horizontal, 16)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
             }
+            .padding(.vertical, 8)
         }
         .background(Color.appBackground.ignoresSafeArea())
-        .navigationTitle("検索")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar(.visible, for: .navigationBar)
         .searchable(
             text: $searchText,
             placement: .navigationBarDrawer(displayMode: .always),
