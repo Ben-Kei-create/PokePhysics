@@ -27,6 +27,7 @@ struct PokePhysicsApp: App {
                             }
                         }
                 }
+                .fontDesign(.rounded)
                 .environmentObject(router)
                 .environmentObject(bookmarkStore)
 

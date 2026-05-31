@@ -27,14 +27,24 @@ private struct CategoryListTab: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 6) {
                     Text("ポケぶつ")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
-                    Text("高校物理の公式集")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                    HStack(spacing: 8) {
+                        Text("高校物理の公式集")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Text("学習指導要領準拠")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(.navyAccent)
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 3)
+                            .background(
+                                Capsule().fill(Color.navyAccent.opacity(0.10))
+                            )
+                    }
                 }
                 .padding(.top, 8)
 
