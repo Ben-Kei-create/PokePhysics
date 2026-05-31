@@ -8,7 +8,7 @@ struct HomeView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            CategoryListTab()
+            CategoryListTab(searchText: $formulaSearchText)
                 .tabItem {
                     Label("公式", systemImage: "function")
                 }
@@ -49,7 +49,7 @@ private enum HomeTab {
     var navigationTitle: String {
         switch self {
         case .formulas:
-            "ポケぶつ"
+            ""
         case .bookmarks:
             "ブックマーク"
         case .search:
@@ -63,36 +63,93 @@ private enum HomeTab {
 // MARK: - Category List Tab
 private struct CategoryListTab: View {
     @EnvironmentObject private var router: AppRouter
+    @Binding var searchText: String
 
     private let categories = FormulaLibrary.allCategories
+    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+
+    private var query: String {
+        searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var searchResults: [Formula] {
+        FormulaLibrary.allCategories
+            .flatMap(\.formulas)
+            .filter { formula in
+                formula.title.localizedCaseInsensitiveContains(query)
+                    || formula.summary.localizedCaseInsensitiveContains(query)
+                    || formula.latex.localizedCaseInsensitiveContains(query)
+            }
+    }
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("ポケぶつ")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                    Text("高校物理の公式集")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
+        VStack(spacing: 12) {
+            AdBannerSlot()
+                .padding(.horizontal, 16)
                 .padding(.top, 8)
 
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                    ForEach(categories) { category in
-                        CategoryCard(category: category)
-                            .onTapGesture {
-                                router.path.append(AppRoute.formulaList(category))
-                            }
+            InlineSearchField(prompt: "公式を検索", text: $searchText)
+                .padding(.horizontal, 16)
+
+            ScrollView {
+                if query.isEmpty {
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(categories) { category in
+                            CategoryCard(category: category)
+                                .onTapGesture {
+                                    router.path.append(AppRoute.formulaList(category))
+                                }
+                        }
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 8)
+                    .padding(.bottom, 32)
+                } else if searchResults.isEmpty {
+                    EmptyFormulaSearchPlaceholder()
+                        .padding(.top, 64)
+                } else {
+                    LazyVStack(spacing: 16) {
+                        ForEach(searchResults) { formula in
+                            FormulaCard(formula: formula)
+                                .onTapGesture {
+                                    router.path.append(AppRoute.formulaDetail(formula))
+                                }
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
+                    .padding(.bottom, 32)
                 }
             }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 32)
         }
         .background(Color.appBackground.ignoresSafeArea())
+    }
+}
+
+private struct AdBannerSlot: View {
+    var body: some View {
+        AdBannerView(adUnitID: AdMobConfiguration.formulaBannerAdUnitID)
+            .frame(maxWidth: .infinity)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color.cardBackground)
+                    .shadow(color: Color.navyButton.opacity(0.07), radius: 8, x: 0, y: 3)
+            )
+    }
+}
+
+private struct EmptyFormulaSearchPlaceholder: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 44))
+                .foregroundColor(Color.navyAccent.opacity(0.3))
+
+            Text("該当する公式はありません")
+                .font(.headline)
+                .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 

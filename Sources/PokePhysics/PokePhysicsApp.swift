@@ -1,3 +1,4 @@
+import GoogleMobileAds
 import SwiftUI
 
 enum LaunchDefaults {
@@ -9,6 +10,10 @@ struct PokePhysicsApp: App {
     @StateObject private var router = AppRouter()
     @StateObject private var bookmarkStore = BookmarkStore()
     @State private var shouldShowWelcome = !UserDefaults.standard.bool(forKey: LaunchDefaults.hasLaunchedBeforeKey)
+
+    init() {
+        MobileAds.shared.start()
+    }
 
     var body: some Scene {
         WindowGroup {

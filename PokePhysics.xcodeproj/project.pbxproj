@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A56452822FCC22C700F2C329 /* iosMath in Frameworks */ = {isa = PBXBuildFile; productRef = A56452812FCC22C700F2C329 /* iosMath */; };
+		D77C07BED016471DB2D29F7D /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = DB464FB9A83F414EB2D0B77F /* GoogleMobileAds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D77C07BED016471DB2D29F7D /* GoogleMobileAds in Frameworks */,
 				A56452822FCC22C700F2C329 /* iosMath in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +73,7 @@
 			name = PokePhysics;
 			packageProductDependencies = (
 				A56452812FCC22C700F2C329 /* iosMath */,
+				DB464FB9A83F414EB2D0B77F /* GoogleMobileAds */,
 			);
 			productName = PokePhysics;
 			productReference = A564525E2FCBF9E900F2C329 /* PokePhysics.app */;
@@ -102,6 +105,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A56452802FCC22C700F2C329 /* XCRemoteSwiftPackageReference "iosMath" */,
+				5F5E92784DCD42F7A94C7A7E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A564525F2FCBF9E900F2C329 /* Products */;
@@ -264,12 +268,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7R927F3U4V;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PokePhysicsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -300,12 +300,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7R927F3U4V;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PokePhysicsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -351,6 +347,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5F5E92784DCD42F7A94C7A7E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.4.0;
+			};
+		};
 		A56452802FCC22C700F2C329 /* XCRemoteSwiftPackageReference "iosMath" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kostub/iosMath";
@@ -366,6 +370,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A56452802FCC22C700F2C329 /* XCRemoteSwiftPackageReference "iosMath" */;
 			productName = iosMath;
+		};
+		DB464FB9A83F414EB2D0B77F /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F5E92784DCD42F7A94C7A7E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
