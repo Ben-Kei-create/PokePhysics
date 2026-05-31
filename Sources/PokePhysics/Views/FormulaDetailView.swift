@@ -14,13 +14,24 @@ struct FormulaDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                LaTeXView(
-                    latex: formula.latex,
-                    fontSize: 44,
-                    textColor: scheme == .dark ? .white : .black
-                )
-                .frame(maxWidth: .infinity)
-                .frame(height: 80)
+
+                // LaTeX + タグ
+                VStack(spacing: 12) {
+                    LaTeXView(
+                        latex: formula.latex,
+                        fontSize: 44,
+                        textColor: scheme == .dark ? .white : .black
+                    )
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 80)
+
+                    if formula.examTag != .none {
+                        HStack {
+                            Spacer()
+                            ExamTagBadge(tag: formula.examTag)
+                        }
+                    }
+                }
                 .padding(.top, 8)
 
                 SectionCard(title: "概要") {
@@ -28,6 +39,21 @@ struct FormulaDetailView: View {
                         .font(.body)
                         .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
+                }
+
+                if let example = formula.example {
+                    SectionCard(title: "例題") {
+                        HStack(alignment: .top, spacing: 10) {
+                            Image(systemName: "pencil.and.ruler")
+                                .font(.system(size: 15))
+                                .foregroundColor(.navyAccent)
+                                .padding(.top, 2)
+                            Text(example)
+                                .font(.body)
+                                .foregroundColor(.primary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
                 }
 
                 if !formula.symbols.isEmpty {
@@ -106,6 +132,7 @@ struct FormulaDetailView: View {
 }
 
 // MARK: - Section Card
+
 private struct SectionCard<Content: View>: View {
     let title: String
     @ViewBuilder let content: () -> Content

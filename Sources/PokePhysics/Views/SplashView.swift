@@ -34,7 +34,7 @@ struct SplashView: View {
 
                 // Apple
                 Text("🍎")
-                    .font(.system(size: 68))
+                    .font(.system(size: 52))
                     .scaleEffect(x: scaleX, y: scaleY, anchor: .center)
                     .rotationEffect(.degrees(isSpinning ? 360 : 0))
                     .animation(

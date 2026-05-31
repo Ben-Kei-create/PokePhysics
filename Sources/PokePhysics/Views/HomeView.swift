@@ -5,9 +5,14 @@ struct HomeView: View {
     @State private var bookmarkSearchText = ""
     @State private var formulaSearchText = ""
     @State private var constantSearchText = ""
-
+    
     var body: some View {
         TabView(selection: $selectedTab) {
+            FlashcardView()
+                .tabItem {
+                    Label("暗記", systemImage: "square.stack")
+                }
+
             CategoryListTab(searchText: $formulaSearchText)
                 .tabItem {
                     Label("公式", systemImage: "function")
@@ -187,3 +192,5 @@ private struct CategoryCard: View {
         )
     }
 }
+
+

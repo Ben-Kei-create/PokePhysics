@@ -27,6 +27,7 @@ struct PokePhysicsApp: App {
                             }
                         }
                 }
+                .fontDesign(.rounded)   // ← ここ（NavigationStack全体に効く）
                 .environmentObject(router)
                 .environmentObject(bookmarkStore)
 
