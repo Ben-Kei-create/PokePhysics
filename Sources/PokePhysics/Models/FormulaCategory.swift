@@ -130,6 +130,60 @@ extension FormulaCategory {
             conditions: "力が面に垂直に一様にかかるとき。",
             subcategory: "力と運動"
         )
+        let velocitySquared = Formula(
+            title: "等加速度運動（v²の公式）",
+            latex: "v^2 - v_0^2 = 2ax",
+            summary: "時間 t を消去した等加速度運動の関係式。",
+            symbols: [
+                FormulaSymbol(symbol: "v", description: "速度 [m/s]"),
+                FormulaSymbol(symbol: "v_0", description: "初速度 [m/s]"),
+                FormulaSymbol(symbol: "a", description: "加速度 [m/s²]"),
+                FormulaSymbol(symbol: "x", description: "変位 [m]")
+            ],
+            conditions: "加速度が一定のとき成立する。",
+            relatedFormulaIDs: [velocityKinematics.id, displacement.id],
+            subcategory: "力と運動"
+        )
+        let angularVelocity = Formula(
+            title: "角速度と速さ",
+            latex: "v = r\\omega",
+            summary: "円運動する物体の速さは半径と角速度の積。",
+            symbols: [
+                FormulaSymbol(symbol: "v", description: "速さ [m/s]"),
+                FormulaSymbol(symbol: "r", description: "半径 [m]"),
+                FormulaSymbol(symbol: "\\omega", description: "角速度 [rad/s]")
+            ],
+            conditions: "等速円運動のとき成立する。",
+            relatedFormulaIDs: [centripetal.id],
+            subcategory: "力と運動"
+        )
+        let restitution = Formula(
+            title: "反発係数（はね返り係数）",
+            latex: "e = -\\frac{v_1' - v_2'}{v_1 - v_2}",
+            summary: "衝突前後の相対速度の比。e=1 が弾性衝突、e=0 が完全非弾性衝突。",
+            symbols: [
+                FormulaSymbol(symbol: "e", description: "反発係数（無次元、0 ≤ e ≤ 1）"),
+                FormulaSymbol(symbol: "v_1, v_2", description: "衝突前の速度 [m/s]"),
+                FormulaSymbol(symbol: "v_1', v_2'", description: "衝突後の速度 [m/s]")
+            ],
+            conditions: "一直線上の衝突で成立する。",
+            relatedFormulaIDs: [momentum.id],
+            subcategory: "力と運動"
+        )
+        let hydropressure = Formula(
+            title: "水圧",
+            latex: "p = p_0 + \\rho h g",
+            summary: "深さ h での圧力は大気圧に液体の圧力を加えた値。",
+            symbols: [
+                FormulaSymbol(symbol: "p", description: "深さ h での圧力 [Pa]"),
+                FormulaSymbol(symbol: "p_0", description: "大気圧 [Pa]"),
+                FormulaSymbol(symbol: "\\rho", description: "液体の密度 [kg/m³]"),
+                FormulaSymbol(symbol: "h", description: "深さ [m]"),
+                FormulaSymbol(symbol: "g", description: "重力加速度 [m/s²]")
+            ],
+            conditions: "静止した液体中で成立する。",
+            subcategory: "力と運動"
+        )
         let buoyancy = Formula(
             title: "浮力（アルキメデスの原理）",
             latex: "F = \\rho V g",
@@ -154,6 +208,19 @@ extension FormulaCategory {
                 FormulaSymbol(symbol: "r", description: "質量間の距離 [m]")
             ],
             conditions: "質点同士、または球対称な物体間で成立する。",
+            subcategory: "力と運動"
+        )
+        let firstCosmicVelocity = Formula(
+            title: "第1宇宙速度",
+            latex: "v = \\sqrt{gR}",
+            summary: "地表すれすれに人工衛星を周回させるために必要な最小速度。",
+            symbols: [
+                FormulaSymbol(symbol: "v", description: "第1宇宙速度 [m/s]"),
+                FormulaSymbol(symbol: "g", description: "重力加速度 ≈ 9.8 [m/s²]"),
+                FormulaSymbol(symbol: "R", description: "地球の半径 ≈ 6.4×10⁶ [m]")
+            ],
+            conditions: "地球を均質な球体と仮定したとき成立する。",
+            relatedFormulaIDs: [gravitation.id, centripetal.id],
             subcategory: "力と運動"
         )
         // 仕事とエネルギー
@@ -193,6 +260,61 @@ extension FormulaCategory {
             ],
             conditions: "保存力のみが働く系で成立する。",
             relatedFormulaIDs: [kineticEnergy.id, momentum.id],
+            subcategory: "仕事とエネルギー"
+        )
+        let gravitationalPE = Formula(
+            title: "重力による位置エネルギー",
+            latex: "U = mgh",
+            summary: "高さ h にある質量 m の物体が持つ重力による位置エネルギー。",
+            symbols: [
+                FormulaSymbol(symbol: "U", description: "位置エネルギー [J]"),
+                FormulaSymbol(symbol: "m", description: "質量 [kg]"),
+                FormulaSymbol(symbol: "g", description: "重力加速度 ≈ 9.8 [m/s²]"),
+                FormulaSymbol(symbol: "h", description: "基準点からの高さ [m]")
+            ],
+            conditions: "重力加速度が一定とみなせる範囲で成立する。",
+            relatedFormulaIDs: [kineticEnergy.id],
+            subcategory: "仕事とエネルギー"
+        )
+        let elasticPE = Formula(
+            title: "弾性位置エネルギー",
+            latex: "U = \\frac{1}{2}kx^2",
+            summary: "変形量 x のばねに蓄えられる弾性エネルギー。",
+            symbols: [
+                FormulaSymbol(symbol: "U", description: "弾性位置エネルギー [J]"),
+                FormulaSymbol(symbol: "k", description: "ばね定数 [N/m]"),
+                FormulaSymbol(symbol: "x", description: "変形量 [m]")
+            ],
+            conditions: "弾性限界内（フックの法則が成立する範囲）で成立する。",
+            relatedFormulaIDs: [hooke.id, kineticEnergy.id],
+            subcategory: "仕事とエネルギー"
+        )
+        let gravitationalPEU = Formula(
+            title: "万有引力による位置エネルギー",
+            latex: "U = -G\\frac{Mm}{r}",
+            summary: "無限遠を基準としたときの万有引力による位置エネルギー（負の値）。",
+            symbols: [
+                FormulaSymbol(symbol: "U", description: "位置エネルギー [J]"),
+                FormulaSymbol(symbol: "G", description: "万有引力定数 [N·m²/kg²]"),
+                FormulaSymbol(symbol: "M", description: "中心天体の質量 [kg]"),
+                FormulaSymbol(symbol: "m", description: "物体の質量 [kg]"),
+                FormulaSymbol(symbol: "r", description: "中心からの距離 [m]")
+            ],
+            conditions: "無限遠で U=0 となる基準で成立する。",
+            relatedFormulaIDs: [gravitation.id],
+            subcategory: "仕事とエネルギー"
+        )
+        let mechanicalPower = Formula(
+            title: "仕事率（パワー）",
+            latex: "P = Fv",
+            summary: "単位時間あたりの仕事。力と速度の積で表される。",
+            symbols: [
+                FormulaSymbol(symbol: "P", description: "仕事率 [W]"),
+                FormulaSymbol(symbol: "F", description: "力 [N]"),
+                FormulaSymbol(symbol: "v", description: "速さ [m/s]")
+            ],
+            conditions: "力と速度が同方向のとき成立する。",
+            relatedFormulaIDs: [work.id],
             subcategory: "仕事とエネルギー"
         )
         let moment = Formula(
@@ -245,6 +367,21 @@ extension FormulaCategory {
             relatedFormulaIDs: [hooke.id],
             subcategory: "ばね・振動"
         )
+        let shm = Formula(
+            title: "単振動の変位",
+            latex: "x = A\\sin(\\omega t + \\phi_0)",
+            summary: "単振動（SHM）での物体の変位を時刻 t の関数として表す式。",
+            symbols: [
+                FormulaSymbol(symbol: "x", description: "変位 [m]"),
+                FormulaSymbol(symbol: "A", description: "振幅 [m]"),
+                FormulaSymbol(symbol: "\\omega", description: "角振動数 [rad/s]"),
+                FormulaSymbol(symbol: "t", description: "時刻 [s]"),
+                FormulaSymbol(symbol: "\\phi_0", description: "初期位相 [rad]")
+            ],
+            conditions: "復元力が変位に比例する系（フックの法則等）で成立する。",
+            relatedFormulaIDs: [springPendulum.id],
+            subcategory: "ばね・振動"
+        )
         let pendulum = Formula(
             title: "単振り子の周期",
             latex: "T = 2\\pi\\sqrt{\\frac{l}{g}}",
@@ -264,9 +401,11 @@ extension FormulaCategory {
             icon: "arrow.up.right.circle",
             formulas: [
                 newton, hooke, friction,
-                velocityKinematics, displacement, momentum, centripetal, pressure, buoyancy, gravitation,
-                work, kineticEnergy, energy, moment,
-                springSerial, springParallel, springPendulum, pendulum
+                velocityKinematics, displacement, velocitySquared,
+                momentum, restitution, centripetal, angularVelocity,
+                pressure, hydropressure, buoyancy, gravitation, firstCosmicVelocity,
+                work, gravitationalPE, elasticPE, gravitationalPEU, mechanicalPower, kineticEnergy, energy, moment,
+                springSerial, springParallel, springPendulum, shm, pendulum
             ]
         )
     }()
@@ -482,6 +621,20 @@ extension FormulaCategory {
             relatedFormulaIDs: [faraday.id],
             subcategory: "磁気"
         )
+        let motionalEMF = Formula(
+            title: "導線が動くことで生じる誘導起電力",
+            latex: "V = vBl",
+            summary: "磁場 B 中を速さ v で動く長さ l の導線に生じる誘導起電力。",
+            symbols: [
+                FormulaSymbol(symbol: "V", description: "誘導起電力 [V]"),
+                FormulaSymbol(symbol: "v", description: "導線の速さ [m/s]"),
+                FormulaSymbol(symbol: "B", description: "磁束密度 [T]"),
+                FormulaSymbol(symbol: "l", description: "有効な導線の長さ [m]")
+            ],
+            conditions: "v、B、l がすべて互いに垂直のとき最大値となる。",
+            relatedFormulaIDs: [faraday.id, lorentz.id],
+            subcategory: "磁気"
+        )
         let coilEnergy = Formula(
             title: "コイルのエネルギー",
             latex: "U = \\frac{1}{2}LI^2",
@@ -547,6 +700,19 @@ extension FormulaCategory {
             relatedFormulaIDs: [impedance.id],
             subcategory: "交流"
         )
+        let acEffective = Formula(
+            title: "交流の実効値",
+            latex: "V_e = \\frac{V_0}{\\sqrt{2}},\\quad I_e = \\frac{I_0}{\\sqrt{2}}",
+            summary: "正弦波交流の実効値は最大値を √2 で割った値。",
+            symbols: [
+                FormulaSymbol(symbol: "V_e", description: "電圧の実効値 [V]"),
+                FormulaSymbol(symbol: "V_0", description: "電圧の最大値（振幅） [V]"),
+                FormulaSymbol(symbol: "I_e", description: "電流の実効値 [A]"),
+                FormulaSymbol(symbol: "I_0", description: "電流の最大値（振幅） [A]")
+            ],
+            conditions: "正弦波交流のみに成立する。",
+            subcategory: "交流"
+        )
         let transformer = Formula(
             title: "変圧器",
             latex: "\\frac{V_1}{V_2} = \\frac{N_1}{N_2}",
@@ -566,8 +732,8 @@ extension FormulaCategory {
             formulas: [
                 coulomb, electricField, electricPotential, capacitance, capacitorEnergy,
                 current, ohm, resistivity, power, joule, emf,
-                lorentz, wireForce, faraday, selfInduction, coilEnergy,
-                reactanceL, reactanceC, impedance, resonance, transformer
+                lorentz, wireForce, faraday, motionalEMF, selfInduction, coilEnergy,
+                reactanceL, reactanceC, impedance, resonance, acEffective, transformer
             ]
         )
     }()
@@ -588,6 +754,19 @@ extension FormulaCategory {
                 FormulaSymbol(symbol: "\\Delta T", description: "温度変化 [K]")
             ],
             conditions: "相変化がない範囲で成立する。",
+            subcategory: "熱と温度"
+        )
+        let heatCapacity = Formula(
+            title: "熱容量",
+            latex: "Q = C\\Delta T",
+            summary: "熱容量 C の物体の温度を ΔT 変化させるのに必要な熱量。",
+            symbols: [
+                FormulaSymbol(symbol: "Q", description: "熱量 [J]"),
+                FormulaSymbol(symbol: "C", description: "熱容量 [J/K]"),
+                FormulaSymbol(symbol: "\\Delta T", description: "温度変化 [K]")
+            ],
+            conditions: "熱容量 C = mc（質量×比熱）。相変化がない範囲で成立する。",
+            relatedFormulaIDs: [specificHeat.id],
             subcategory: "熱と温度"
         )
         // 気体の法則
@@ -735,6 +914,19 @@ extension FormulaCategory {
             relatedFormulaIDs: [molarHeatCv.id, molarHeatCp.id],
             subcategory: "熱力学の法則"
         )
+        let heatRatio = Formula(
+            title: "比熱比",
+            latex: "\\gamma = \\frac{C_P}{C_V}",
+            summary: "定圧モル比熱と定積モル比熱の比。断熱変化の計算に使う。",
+            symbols: [
+                FormulaSymbol(symbol: "\\gamma", description: "比熱比（無次元）"),
+                FormulaSymbol(symbol: "C_P", description: "定圧モル比熱 [J/(mol·K)]"),
+                FormulaSymbol(symbol: "C_V", description: "定積モル比熱 [J/(mol·K)]")
+            ],
+            conditions: "単原子理想気体では γ = 5/3 ≈ 1.67。",
+            relatedFormulaIDs: [molarHeatCv.id, molarHeatCp.id, mayer.id],
+            subcategory: "熱力学の法則"
+        )
         let heatEfficiency = Formula(
             title: "熱効率",
             latex: "e = \\frac{W}{Q_1} = \\frac{Q_1 - Q_2}{Q_1}",
@@ -754,10 +946,10 @@ extension FormulaCategory {
             name: "熱力学",
             icon: "thermometer.medium",
             formulas: [
-                specificHeat,
+                specificHeat, heatCapacity,
                 idealGas, boyleCharles, boyle, charles,
                 kineticTheory, internalEnergy,
-                firstLaw, workByGas, molarHeatCv, molarHeatCp, mayer, heatEfficiency
+                firstLaw, workByGas, molarHeatCv, molarHeatCp, mayer, heatRatio, heatEfficiency
             ]
         )
     }()
@@ -834,6 +1026,20 @@ extension FormulaCategory {
             relatedFormulaIDs: [interferenceStrong.id],
             subcategory: "干渉と回折"
         )
+        let newtonRings = Formula(
+            title: "ニュートンリング（明環の条件）",
+            latex: "r^2 = \\left(m + \\frac{1}{2}\\right)\\lambda R",
+            summary: "平凸レンズと平面ガラスの間の薄膜干渉で生じる明るい環の半径。",
+            symbols: [
+                FormulaSymbol(symbol: "r", description: "明環の半径 [m]"),
+                FormulaSymbol(symbol: "m", description: "整数 (0, 1, 2, …)"),
+                FormulaSymbol(symbol: "\\lambda", description: "光の波長 [m]"),
+                FormulaSymbol(symbol: "R", description: "レンズの曲率半径 [m]")
+            ],
+            conditions: "空気層の厚さが波長に比べて十分薄いとき成立する。",
+            relatedFormulaIDs: [interferenceStrong.id],
+            subcategory: "干渉と回折"
+        )
         let youngBright = Formula(
             title: "ヤングの干渉実験（明線）",
             latex: "\\frac{dx}{l} = m\\lambda",
@@ -886,6 +1092,32 @@ extension FormulaCategory {
                 FormulaSymbol(symbol: "n", description: "屈折率（無次元、≥1）")
             ],
             conditions: "光学的に均質な媒質で成立する。",
+            relatedFormulaIDs: [snell.id],
+            subcategory: "光の性質"
+        )
+        let criticalAngle = Formula(
+            title: "全反射の臨界角",
+            latex: "\\sin\\theta_c = \\frac{n_2}{n_1}",
+            summary: "密な媒質から疎な媒質へ光が入射するとき、全反射が起きる最小角度。",
+            symbols: [
+                FormulaSymbol(symbol: "\\theta_c", description: "臨界角 [rad]"),
+                FormulaSymbol(symbol: "n_1", description: "入射側媒質の屈折率（大きい方）"),
+                FormulaSymbol(symbol: "n_2", description: "透過側媒質の屈折率（小さい方）")
+            ],
+            conditions: "n₁ > n₂ のとき成立する。θ ≥ θc で全反射が起きる。",
+            relatedFormulaIDs: [snell.id],
+            subcategory: "光の性質"
+        )
+        let lensFormula = Formula(
+            title: "レンズの公式",
+            latex: "\\frac{1}{a} + \\frac{1}{b} = \\frac{1}{f}",
+            summary: "物体距離 a と像距離 b の逆数の和は焦点距離 f の逆数に等しい。",
+            symbols: [
+                FormulaSymbol(symbol: "a", description: "物体距離（レンズから物体まで） [m]"),
+                FormulaSymbol(symbol: "b", description: "像距離（レンズから像まで） [m]"),
+                FormulaSymbol(symbol: "f", description: "焦点距離 [m]")
+            ],
+            conditions: "薄いレンズ近似で成立する。実像のとき b > 0。",
             relatedFormulaIDs: [snell.id],
             subcategory: "光の性質"
         )
@@ -977,8 +1209,8 @@ extension FormulaCategory {
             icon: "waveform",
             formulas: [
                 waveEquation, period, sineWave,
-                interferenceStrong, interferenceWeak, youngBright, diffractionGrating,
-                snell, lightSpeed, thinFilm,
+                newtonRings, interferenceStrong, interferenceWeak, youngBright, diffractionGrating,
+                snell, lightSpeed, criticalAngle, lensFormula, thinFilm,
                 doppler, beat, closedPipe, openPipe, airSound
             ]
         )
