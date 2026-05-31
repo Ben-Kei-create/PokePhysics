@@ -9,6 +9,7 @@ enum LaunchDefaults {
 struct PokePhysicsApp: App {
     @StateObject private var router = AppRouter()
     @StateObject private var bookmarkStore = BookmarkStore()
+<<<<<<< HEAD
     @State private var shouldShowWelcome = !UserDefaults.standard.bool(forKey: LaunchDefaults.hasLaunchedBeforeKey)
 
     init() {
@@ -38,6 +39,27 @@ struct PokePhysicsApp: App {
             }
             .environmentObject(router)
             .environmentObject(bookmarkStore)
+=======
+    @State private var showSplash = true
+
+    var body: some Scene {
+        WindowGroup {
+            ZStack {
+                // WelcomeView は常に背後に用意。スプラッシュが消えた瞬間に見える。
+                WelcomeView()
+                    .environmentObject(router)
+                    .environmentObject(bookmarkStore)
+
+                if showSplash {
+                    SplashView {
+                        withAnimation(.easeOut(duration: 0.45)) {
+                            showSplash = false
+                        }
+                    }
+                    .transition(.opacity)
+                }
+            }
+>>>>>>> origin/claude/charming-curie-iXXnt
         }
     }
 }
