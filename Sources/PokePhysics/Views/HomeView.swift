@@ -12,9 +12,14 @@ struct HomeView: View {
                 .tabItem {
                     Label("ブックマーク", systemImage: "bookmark")
                 }
+
+            SearchView()
+                .tabItem {
+                    Label("検索", systemImage: "magnifyingglass")
+                }
         }
         .tint(.navyAccent)
-        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -51,6 +56,7 @@ private struct CategoryListTab: View {
             .padding(.bottom, 32)
         }
         .background(Color.appBackground.ignoresSafeArea())
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 

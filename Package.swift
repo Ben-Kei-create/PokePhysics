@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "PokePhysics", targets: ["PokePhysics"])
     ],
     dependencies: [
-        .package(url: "https://github.com/kostub/iosMath", from: "0.9.5")
+        .package(url: "https://github.com/kostub/iosMath", from: "2.2.0")
     ],
     targets: [
         .target(
@@ -18,7 +18,10 @@ let package = Package(
             dependencies: [
                 .product(name: "iosMath", package: "iosMath")
             ],
-            path: "Sources/PokePhysics"
+            path: "Sources/PokePhysics",
+            resources: [
+                .process("Assets.xcassets")
+            ]
         )
     ]
 )

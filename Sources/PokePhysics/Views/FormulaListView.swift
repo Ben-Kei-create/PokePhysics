@@ -43,6 +43,7 @@ struct FormulaListView: View {
         .background(Color.appBackground.ignoresSafeArea())
         .navigationTitle(category.name)
         .navigationBarTitleDisplayMode(.large)
+        .toolbar(.visible, for: .navigationBar)
         .onAppear {
             styleSegmentedControl()
         }

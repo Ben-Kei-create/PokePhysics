@@ -89,7 +89,9 @@ struct FormulaDetailView: View {
             .padding(.bottom, 40)
         }
         .background(Color.appBackground.ignoresSafeArea())
+        .navigationTitle(formula.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.visible, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {

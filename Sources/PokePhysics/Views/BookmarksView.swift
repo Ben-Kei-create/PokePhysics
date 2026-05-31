@@ -31,6 +31,7 @@ struct BookmarksView: View {
         .background(Color.appBackground.ignoresSafeArea())
         .navigationTitle("ブックマーク")
         .navigationBarTitleDisplayMode(.large)
+        .toolbar(.visible, for: .navigationBar)
     }
 }
 

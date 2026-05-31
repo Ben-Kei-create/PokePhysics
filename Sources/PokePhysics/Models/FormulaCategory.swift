@@ -365,4 +365,96 @@ extension FormulaCategory {
             formulas: [waveEquation, period, snell, doppler, standingWave, lightSpeed]
         )
     }()
+
+    // MARK: - 原子物理
+    static let sampleAtomicPhysics: FormulaCategory = {
+        let photoelectric = Formula(
+            title: "光電効果",
+            latex: "E = hf - W",
+            summary: "光電子の最大運動エネルギーは光子のエネルギーから仕事関数を引いた値。",
+            symbols: [
+                FormulaSymbol(symbol: "E", description: "光電子の最大運動エネルギー [J]"),
+                FormulaSymbol(symbol: "h", description: "プランク定数 [J·s]"),
+                FormulaSymbol(symbol: "f", description: "光の振動数 [Hz]"),
+                FormulaSymbol(symbol: "W", description: "仕事関数 [J]")
+            ],
+            conditions: "入射光の振動数が限界振動数を超えるとき光電子が放出される。",
+            subcategory: "光と電子"
+        )
+
+        let deBroglie = Formula(
+            title: "ド・ブロイ波長",
+            latex: "\\lambda = \\frac{h}{mv}",
+            summary: "運動量をもつ粒子には運動量に反比例する波長が対応する。",
+            symbols: [
+                FormulaSymbol(symbol: "\\lambda", description: "ド・ブロイ波長 [m]"),
+                FormulaSymbol(symbol: "h", description: "プランク定数 [J·s]"),
+                FormulaSymbol(symbol: "m", description: "粒子の質量 [kg]"),
+                FormulaSymbol(symbol: "v", description: "粒子の速さ [m/s]")
+            ],
+            conditions: "非相対論的な速度では p = mv として扱える。",
+            relatedFormulaIDs: [photoelectric.id],
+            subcategory: "光と電子"
+        )
+
+        let bohrRadius = Formula(
+            title: "ボーア半径",
+            latex: "r_n = n^2 a_0",
+            summary: "水素原子の n 番目の軌道半径は主量子数の二乗に比例する。",
+            symbols: [
+                FormulaSymbol(symbol: "r_n", description: "n 番目の軌道半径 [m]"),
+                FormulaSymbol(symbol: "n", description: "主量子数（1, 2, 3, …）"),
+                FormulaSymbol(symbol: "a_0", description: "ボーア半径 ≈ 5.29×10⁻¹¹ [m]")
+            ],
+            conditions: "水素原子のボーア模型で成立する。",
+            subcategory: "原子模型"
+        )
+
+        let energyLevel = Formula(
+            title: "水素原子のエネルギー準位",
+            latex: "E_n = -\\frac{13.6}{n^2}\\ \\mathrm{eV}",
+            summary: "水素原子の束縛状態のエネルギーは主量子数の二乗に反比例する。",
+            symbols: [
+                FormulaSymbol(symbol: "E_n", description: "n 番目のエネルギー準位 [eV]"),
+                FormulaSymbol(symbol: "n", description: "主量子数（1, 2, 3, …）")
+            ],
+            conditions: "水素原子、または水素に近い一電子系の近似で使う。",
+            relatedFormulaIDs: [bohrRadius.id],
+            subcategory: "原子模型"
+        )
+
+        let radioactiveDecay = Formula(
+            title: "放射性崩壊",
+            latex: "N = N_0 \\left(\\frac{1}{2}\\right)^{t/T}",
+            summary: "放射性原子核の数は半減期ごとに半分になる。",
+            symbols: [
+                FormulaSymbol(symbol: "N", description: "時刻 t の原子核数"),
+                FormulaSymbol(symbol: "N_0", description: "初めの原子核数"),
+                FormulaSymbol(symbol: "t", description: "経過時間 [s]"),
+                FormulaSymbol(symbol: "T", description: "半減期 [s]")
+            ],
+            conditions: "多数の原子核について統計的に成立する。",
+            subcategory: "原子核"
+        )
+
+        let massEnergy = Formula(
+            title: "質量とエネルギー",
+            latex: "E = mc^2",
+            summary: "質量 m は光速の二乗を比例定数としてエネルギーに換算できる。",
+            symbols: [
+                FormulaSymbol(symbol: "E", description: "エネルギー [J]"),
+                FormulaSymbol(symbol: "m", description: "質量 [kg]"),
+                FormulaSymbol(symbol: "c", description: "真空中の光速 ≈ 3×10⁸ [m/s]")
+            ],
+            conditions: "相対論的な質量エネルギー等価性を表す。",
+            relatedFormulaIDs: [radioactiveDecay.id],
+            subcategory: "原子核"
+        )
+
+        return FormulaCategory(
+            name: "原子物理",
+            icon: "atom",
+            formulas: [photoelectric, deBroglie, bohrRadius, energyLevel, radioactiveDecay, massEnergy]
+        )
+    }()
 }

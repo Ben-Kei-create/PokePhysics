@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A56452822FCC22C700F2C329 /* iosMath in Frameworks */ = {isa = PBXBuildFile; productRef = A56452812FCC22C700F2C329 /* iosMath */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A564525E2FCBF9E900F2C329 /* PokePhysics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokePhysics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -13,7 +17,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A56452602FCBF9E900F2C329 /* PokePhysics */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PokePhysics;
+			path = Sources/PokePhysics;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A56452822FCC22C700F2C329 /* iosMath in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = PokePhysics;
 			packageProductDependencies = (
+				A56452812FCC22C700F2C329 /* iosMath */,
 			);
 			productName = PokePhysics;
 			productReference = A564525E2FCBF9E900F2C329 /* PokePhysics.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = A56452552FCBF9E900F2C329;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A56452802FCC22C700F2C329 /* XCRemoteSwiftPackageReference "iosMath" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A564525F2FCBF9E900F2C329 /* Products */;
 			projectDirPath = "";
@@ -332,6 +341,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A56452802FCC22C700F2C329 /* XCRemoteSwiftPackageReference "iosMath" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kostub/iosMath";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A56452812FCC22C700F2C329 /* iosMath */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A56452802FCC22C700F2C329 /* XCRemoteSwiftPackageReference "iosMath" */;
+			productName = iosMath;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A56452562FCBF9E900F2C329 /* Project object */;
 }

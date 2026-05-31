@@ -6,7 +6,8 @@ struct FormulaLibrary {
         .sampleMechanics,
         .sampleElectromagnetism,
         .sampleThermodynamics,
-        .sampleWaves
+        .sampleWaves,
+        .sampleAtomicPhysics
     ]
 
     static func formula(by id: UUID) -> Formula? {
