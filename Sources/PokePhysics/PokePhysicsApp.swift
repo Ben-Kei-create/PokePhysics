@@ -24,6 +24,8 @@ struct PokePhysicsApp: App {
                                 FormulaListView(category: category)
                             case .formulaDetail(let formula):
                                 FormulaDetailView(formula: formula)
+                            case .articleDetail(let article):
+                                ArticleReaderView(article: article)
                             }
                         }
                 }

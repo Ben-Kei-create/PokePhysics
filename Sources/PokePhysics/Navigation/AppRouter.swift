@@ -9,4 +9,5 @@ enum AppRoute: Hashable {
     case home
     case formulaList(FormulaCategory)
     case formulaDetail(Formula)
+    case articleDetail(Article)
 }
