@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "PokePhysics", targets: ["PokePhysics"])
     ],
     dependencies: [
-        .package(url: "https://github.com/kostub/iosMath", from: "0.9.5")
+        .package(url: "https://github.com/kostub/iosMath", branch: "master")
     ],
     targets: [
         .target(
