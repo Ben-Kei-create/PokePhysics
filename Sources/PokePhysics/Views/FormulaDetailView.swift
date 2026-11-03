@@ -11,6 +11,10 @@ struct FormulaDetailView: View {
         FormulaLibrary.relatedFormulas(for: formula)
     }
 
+    private var relatedArticles: [Article] {
+        FormulaLibrary.relatedArticles(for: formula)
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
@@ -80,6 +84,41 @@ struct FormulaDetailView: View {
                             .font(.body)
                             .foregroundColor(.primary)
                             .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+
+                if !relatedArticles.isEmpty {
+                    SectionCard(title: "教科書で学ぶ") {
+                        VStack(spacing: 0) {
+                            ForEach(Array(relatedArticles.enumerated()), id: \.element.id) { index, article in
+                                if index > 0 { Divider() }
+                                Button {
+                                    router.path.append(AppRoute.articleDetail(article))
+                                } label: {
+                                    HStack(spacing: 10) {
+                                        Image(systemName: "books.vertical")
+                                            .font(.system(size: 13))
+                                            .foregroundColor(.navyAccent)
+                                            .frame(width: 20)
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text(article.title)
+                                                .font(.body)
+                                                .foregroundColor(.primary)
+                                                .multilineTextAlignment(.leading)
+                                            Text(article.chapter)
+                                                .font(.caption)
+                                                .foregroundColor(.secondary)
+                                        }
+                                        Spacer()
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 13, weight: .semibold))
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .padding(.vertical, 8)
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
                     }
                 }
 

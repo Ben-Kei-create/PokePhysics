@@ -9,6 +9,7 @@ struct ArticleReaderView: View {
 
     private var sections: [ArticleSection] { article.sections }
     private var relatedArticles: [Article] { ArticleLibrary.relatedArticles(for: article) }
+    private var relatedFormulas: [Formula] { ArticleLibrary.relatedFormulas(for: article) }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -42,6 +43,10 @@ struct ArticleReaderView: View {
                                 }
                             )
                         }
+
+                        relatedFormulasSection
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 8)
 
                         relatedSection
                             .padding(.horizontal, 20)
@@ -109,6 +114,49 @@ struct ArticleReaderView: View {
             }
 
             Divider().padding(.top, 4)
+        }
+    }
+
+    // MARK: - Related Formulas
+
+    @ViewBuilder
+    private var relatedFormulasSection: some View {
+        if !relatedFormulas.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("公式で確認する")
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(.secondary)
+                    .textCase(.uppercase)
+                    .tracking(0.5)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(relatedFormulas) { formula in
+                            Button { router.path.append(AppRoute.formulaDetail(formula)) } label: {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text(formula.title)
+                                        .font(.subheadline.weight(.semibold))
+                                        .foregroundColor(.primary)
+                                        .lineLimit(2)
+                                        .multilineTextAlignment(.leading)
+                                    if formula.examTag != .none {
+                                        ExamTagBadge(tag: formula.examTag)
+                                    }
+                                }
+                                .padding(14)
+                                .frame(width: 150, alignment: .topLeading)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .fill(Color.cardBackground)
+                                        .shadow(color: Color.navyButton.opacity(0.08), radius: 8, x: 0, y: 3)
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal, 1)
+                }
+            }
         }
     }
 

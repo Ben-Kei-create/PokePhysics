@@ -20,6 +20,22 @@ enum ArticleLibrary {
         return targets.compactMap { self.article(title: $0) }
     }
 
+    // 教科書記事に関連する公式（同カテゴリの公式 + 本文中に登場するタイトル）
+    static func relatedFormulas(for article: Article) -> [Formula] {
+        let formulaCategory = FormulaLibrary.allCategories.first { cat in
+            FormulaLibrary.articleCategory(for: cat) == article.category
+        }
+        guard let cat = formulaCategory else { return [] }
+        let candidates = cat.formulas
+        let scored = candidates.map { formula -> (Formula, Int) in
+            var score = 0
+            if article.content.contains(formula.title) { score += 2 }
+            if !formula.subcategory.isEmpty && article.title.contains(formula.subcategory) { score += 1 }
+            return (formula, score)
+        }
+        return scored.filter { $0.1 > 0 }.sorted { $0.1 > $1.1 }.prefix(4).map(\.0)
+    }
+
     private static func extractWikiTargets(from content: String) -> [String] {
         let pattern = #"\[\[([^\]|]+)(?:\|[^\]]+)?\]\]"#
         guard let regex = try? NSRegularExpression(pattern: pattern) else { return [] }
